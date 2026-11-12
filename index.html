@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Next Bed</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=DM+Serif+Display:ital@1&family=Hanken+Grotesk:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: 'var(--bg)', surface: 'var(--surface)', soft: 'var(--surface2)', ink: 'var(--ink)', muted: 'var(--muted)',
+          line: 'var(--line)', post: 'var(--post)', navy: 'var(--navy)', blue: 'var(--blue)'
+        },
+        fontFamily: {
+          display: ['"Bricolage Grotesque"', 'Impact', 'system-ui', 'sans-serif'],
+          body: ['"Hanken Grotesk"', 'system-ui', 'sans-serif'],
+          mono: ['"DM Mono"', 'ui-monospace', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* Layout: after-hours Britain. A Union Jack lit like a neon sign behind the hero, tricolour bunting stripes as dividers,
+     saltire X's behind the sleep test, and a full-bleed flag around the closing buy button. One committed dark look. */
+  :root {
+    color-scheme: dark;
+    --bg: #070b1a;        /* midnight, with a blue lean */
+    --surface: #0f1836;
+    --surface2: #17234f;
+    --ink: #f3f5fb;
+    --muted: #a9b4d2;
+    --line: #26346a;
+    --post: #ff2d4b;      /* pillar-box red, lit */
+    --blue: #2446c9;      /* electric flag blue */
+    --navy: #0a1a55;      /* deep flag blue */
+    --glass: rgba(7, 11, 26, 0.88);
+  }
+  body { background: var(--bg); color: var(--ink); font-family: "Hanken Grotesk", system-ui, sans-serif; font-size: 16px; line-height: 1.55; }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+  .wrap { max-width: 72rem; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .serif { font-family: "DM Serif Display", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: 0; }
+  .stripe { height: 5px; background: repeating-linear-gradient(90deg, var(--post) 0 40px, #ffffff 40px 80px, var(--blue) 80px 120px); }
+  .glass { background: var(--glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+  .btn-buy {
+    color: #fff; background: linear-gradient(180deg, #f2304f, #d3103a);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.2) inset, 0 12px 32px -8px rgba(255,45,75,.75);
+    transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  }
+  .btn-buy:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(255,255,255,.3) inset, 0 16px 40px -8px rgba(255,45,75,.95); }
+  .btn-buy:active { transform: translateY(0); }
+  .btn-ghost { border: 1px solid rgba(255,255,255,.35); color: #fff; background: rgba(255,255,255,.06); transition: background .12s ease; }
+  .btn-ghost:hover { background: rgba(255,255,255,.16); }
+  .pill { border: 1px solid var(--line); background: var(--surface2); color: var(--ink); transition: background .12s ease; }
+  .pill:hover { background: var(--line); }
+  .pill[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .card { background: linear-gradient(180deg, var(--surface2), var(--surface) 40%); border: 1px solid var(--line); transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease; }
+  .card:hover { border-color: var(--post); box-shadow: 0 0 0 1px var(--post), 0 20px 50px -20px rgba(255,45,75,.55); transform: translateY(-2px); }
+  .lit { box-shadow: 0 0 10px rgba(255,45,75,.8); }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  details[open] .plus { transform: rotate(45deg); }
+  .plus { transition: transform .15s ease; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+</head>
+<body>
+<!-- Shared Union Jack artwork -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <clipPath id="jk-s"><path d="M0,0 v30 h60 v-30 z"/></clipPath>
+    <clipPath id="jk-t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath>
+    <g id="jackflat" clip-path="url(#jk-s)">
+      <path d="M0,0 v30 h60 v-30 z" fill="#012169"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" stroke="#ffffff" stroke-width="6"/>
+      <path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#jk-t)" stroke="#C8102E" stroke-width="4"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#ffffff" stroke-width="10"/>
+      <path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- Header -->
+<header class="glass sticky z-50" style="top: env(safe-area-inset-top, 0px)">
+  <div class="wrap flex items-center justify-between gap-3 py-3">
+    <a href="#top" class="flex items-center gap-2.5 font-display text-xl font-extrabold tracking-tight">
+      <svg viewBox="0 0 60 30" class="h-5 w-10 rounded-[3px] ring-1 ring-white/30" aria-hidden="true"><use href="#jackflat"/></svg>
+      <span>yournext<span class="text-post">bed</span><span class="text-muted font-bold">.com</span></span>
+    </a>
+    <nav class="hidden items-center gap-6 text-sm font-medium md:flex" aria-label="Main">
+      <a class="hover:text-post" href="#shop">Shop</a>
+      <a class="hover:text-post" href="#test">Sleep test</a>
+      <a class="hover:text-post" href="#why">Why us</a>
+      <a class="hover:text-post" href="#faq">Questions</a>
+    </nav>
+    <button type="button" data-buy="silentnight" class="btn-buy rounded-full px-5 py-2 text-sm font-bold">Buy now</button>
+  </div>
+  <div class="stripe"></div>
+</header>
+
+<main id="top" class="pb-24 md:pb-0">
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <svg class="absolute inset-0 h-full w-full" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="opacity:.6"><use href="#jackflat"/></svg>
+    <div class="absolute inset-0" style="background: linear-gradient(90deg, var(--bg) 0%, rgba(7,11,26,.88) 38%, rgba(7,11,26,.45) 100%), linear-gradient(180deg, rgba(7,11,26,.2) 55%, var(--bg) 100%)"></div>
+    <div class="wrap relative grid items-center gap-10 py-14 md:grid-cols-2 md:py-24">
+      <div class="min-w-0">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-post">Beds and mattresses &middot; proudly British &middot; lights down low</p>
+        <h1 class="mt-4 font-display text-6xl font-extrabold leading-[0.9] tracking-tight text-balance sm:text-7xl lg:text-8xl">Get your head down. <span class="serif text-post">Properly.</span></h1>
+        <p class="mt-6 max-w-[34rem] text-lg text-white/80">It's raining again, so you're staying in anyway. You might as well be horizontal. Pick a bed, press the button, and our delivery team will get it up your stairs and into position before the kettle's boiled. You make the tea, we'll do the heavy lifting.</p>
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <button type="button" data-buy="silentnight" class="btn-buy rounded-full px-7 py-4 text-base font-bold">Buy Silentnight &middot; <span data-price="silentnight"></span></button>
+          <a href="#shop" class="btn-ghost rounded-full px-7 py-4 text-base font-bold">Browse the lot</a>
+        </div>
+        <p class="mt-3 font-mono text-xs text-white/70"><span data-sizename="silentnight"></span> size shown. One click takes you to checkout.</p>
+        <ul class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/90">
+          <li>100-night trial</li><li>Two-person delivery</li><li>Old mattress taken away</li><li>10-year guarantee</li>
+        </ul>
+      </div>
+
+      <div class="relative min-w-0">
+        <svg viewBox="0 0 520 380" role="img" aria-label="A bed with a Union Jack duvet and two plump pillows, softly lit in red" class="h-auto w-full" style="overflow: visible">
+          <defs>
+            <radialGradient id="hb-glow" cx="50%" cy="45%" r="60%"><stop offset="0%" stop-color="#ff2d4b" stop-opacity=".55"/><stop offset="100%" stop-color="#ff2d4b" stop-opacity="0"/></radialGradient>
+            <linearGradient id="hb-sheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffffff" stop-opacity=".32"/><stop offset="55%" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+            <linearGradient id="hb-board" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2446c9"/><stop offset="100%" stop-color="#0a1a55"/></linearGradient>
+            <clipPath id="hb-duvet"><rect x="34" y="172" width="452" height="102" rx="18"/></clipPath>
+            <clipPath id="hb-board-clip"><rect x="70" y="26" width="380" height="196" rx="24"/></clipPath>
+          </defs>
+          <ellipse cx="260" cy="170" rx="320" ry="210" fill="url(#hb-glow)"/>
+          <ellipse cx="260" cy="340" rx="236" ry="16" fill="#000000" opacity=".55"/>
+          <rect x="70" y="26" width="380" height="196" rx="24" fill="url(#hb-board)"/>
+          <g clip-path="url(#hb-board-clip)">
+            <path d="M70 26 L450 222 M450 26 L70 222" stroke="#ffffff" stroke-opacity=".16" stroke-width="2"/>
+            <path d="M260 26 V222 M70 124 H450" stroke="#ff2d4b" stroke-opacity=".5" stroke-width="3"/>
+            <g fill="#ffffff" opacity=".4"><circle cx="260" cy="124" r="7"/><circle cx="165" cy="75" r="5"/><circle cx="355" cy="75" r="5"/><circle cx="165" cy="173" r="5"/><circle cx="355" cy="173" r="5"/></g>
+          </g>
+          <rect x="58" y="292" width="24" height="46" rx="5" fill="#04070f"/>
+          <rect x="438" y="292" width="24" height="46" rx="5" fill="#04070f"/>
+          <rect x="40" y="256" width="440" height="52" rx="12" fill="var(--surface2)" stroke="var(--line)" stroke-width="2"/>
+          <ellipse cx="177" cy="196" rx="86" ry="10" fill="#000000" opacity=".35"/>
+          <ellipse cx="343" cy="196" rx="86" ry="10" fill="#000000" opacity=".35"/>
+          <rect x="102" y="122" width="150" height="72" rx="32" fill="#f4f6fb"/>
+          <rect x="102" y="122" width="150" height="72" rx="32" fill="url(#hb-sheen)"/>
+          <rect x="268" y="122" width="150" height="72" rx="32" fill="#f4f6fb"/>
+          <rect x="268" y="122" width="150" height="72" rx="32" fill="url(#hb-sheen)"/>
+          <g clip-path="url(#hb-duvet)">
+            <svg x="34" y="172" width="452" height="102" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice"><use href="#jackflat"/></svg>
+            <rect x="34" y="172" width="452" height="20" fill="#f4f6fb"/>
+            <rect x="34" y="192" width="452" height="4" fill="#000000" opacity=".25"/>
+            <rect x="34" y="172" width="452" height="102" fill="url(#hb-sheen)" opacity=".7"/>
+          </g>
+        </svg>
+        <div class="absolute right-0 top-0 grid h-28 w-28 rotate-12 place-items-center rounded-full border-2 border-dashed border-white/70 bg-post p-3 text-center font-mono text-[11px] font-medium uppercase leading-tight tracking-wider text-white shadow-2xl sm:h-32 sm:w-32 sm:text-xs" style="box-shadow: 0 0 40px rgba(255,45,75,.6)">
+          100 nights.<br>Nothing to lose.<br>Give it a go.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bunting ticker -->
+  <section class="bg-navy" aria-label="A few things we stand for">
+    <div class="stripe"></div>
+    <div class="wrap flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3 font-mono text-xs uppercase tracking-[0.18em] text-white">
+      <span>Nice springs</span>
+      <svg viewBox="0 0 60 30" class="h-3 w-6" aria-hidden="true"><use href="#jackflat"/></svg>
+      <span>Firm and fair</span>
+      <svg viewBox="0 0 60 30" class="h-3 w-6" aria-hidden="true"><use href="#jackflat"/></svg>
+      <span>Up your stairs, no fuss</span>
+      <svg viewBox="0 0 60 30" class="h-3 w-6" aria-hidden="true"><use href="#jackflat"/></svg>
+      <span>Mind the gap</span>
+      <svg viewBox="0 0 60 30" class="h-3 w-6" aria-hidden="true"><use href="#jackflat"/></svg>
+      <span>Stiff upper lip</span>
+    </div>
+    <div class="stripe"></div>
+  </section>
+
+  <!-- Shop -->
+  <section id="shop" class="wrap py-16 md:py-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div class="min-w-0">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-post">The shop</p>
+        <h2 class="mt-2 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-balance md:text-6xl">Six ways to get a <span class="serif text-post">proper kip.</span></h2>
+        <p class="mt-4 max-w-xl text-muted">Choose a size, press Buy now. Delivery's in the price, so there's nothing hiding in the small print, and nothing hiding under the bed either.</p>
+      </div>
+      <div class="flex gap-2" role="group" aria-label="Filter products">
+        <button type="button" class="pill rounded-full px-4 py-2 text-sm font-bold" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="pill rounded-full px-4 py-2 text-sm font-bold" data-filter="mattress" aria-pressed="false">Mattresses</button>
+        <button type="button" class="pill rounded-full px-4 py-2 text-sm font-bold" data-filter="bed" aria-pressed="false">Beds</button>
+      </div>
+    </div>
+    <div id="grid" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+  </section>
+
+  <!-- Sleep test -->
+  <section id="test" class="relative overflow-hidden bg-navy text-white">
+    <svg class="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 0 L100 100 M100 0 L0 100" stroke="#ffffff" stroke-opacity=".12" stroke-width="70" vector-effect="non-scaling-stroke"/>
+      <path d="M0 0 L100 100 M100 0 L0 100" stroke="#ff2d4b" stroke-opacity=".35" stroke-width="22" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <div class="stripe relative"></div>
+    <div class="wrap relative grid gap-10 py-16 md:grid-cols-2 md:py-24">
+      <div class="min-w-0">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-white/70">The sleep test</p>
+        <h2 class="mt-2 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-balance md:text-6xl">How do you sleep? We won't tell the <span class="serif text-post">neighbours.</span></h2>
+        <p class="mt-4 max-w-md text-white/80">Pick the way you wake up. We'll match you with the right one, and you can buy it from right here. Don't be shy, we've heard it all.</p>
+        <div class="mt-6 grid grid-cols-2 gap-3 sm:max-w-md">
+          <button type="button" data-sleep="side" class="rounded-xl border border-white/30 bg-black/30 px-4 py-4 text-left font-bold backdrop-blur hover:bg-black/50">On my side<span class="block text-sm font-normal text-white/70">Curled up like a prawn</span></button>
+          <button type="button" data-sleep="back" class="rounded-xl border border-white/30 bg-black/30 px-4 py-4 text-left font-bold backdrop-blur hover:bg-black/50">On my back<span class="block text-sm font-normal text-white/70">Ready for inspection</span></button>
+          <button type="button" data-sleep="front" class="rounded-xl border border-white/30 bg-black/30 px-4 py-4 text-left font-bold backdrop-blur hover:bg-black/50">On my front<span class="block text-sm font-normal text-white/70">Face down, bum up, no questions</span></button>
+          <button type="button" data-sleep="star" class="rounded-xl border border-white/30 bg-black/30 px-4 py-4 text-left font-bold backdrop-blur hover:bg-black/50">Starfish<span class="block text-sm font-normal text-white/70">All four corners. Greedy.</span></button>
+        </div>
+      </div>
+      <div id="quiz-result" aria-live="polite" class="min-w-0 self-center rounded-2xl border border-line bg-surface p-6 text-ink shadow-2xl" style="box-shadow: 0 30px 80px -20px rgba(0,0,0,.7)">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Your match</p>
+        <p class="mt-3 font-display text-2xl font-extrabold">Pick a position on the left.</p>
+        <p class="mt-2 text-muted">Go on, don't be shy. We've heard it all, and what happens in the bedroom stays in the bedroom.</p>
+      </div>
+    </div>
+    <div class="stripe relative"></div>
+  </section>
+
+  <!-- Why us -->
+  <section id="why" class="wrap py-16 md:py-24">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-post">Why us</p>
+    <h2 class="mt-2 max-w-3xl font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-balance md:text-6xl">Why folk keep <span class="serif text-post">getting into bed</span> with us.</h2>
+    <div class="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-2">
+      <div class="flex gap-4 border-t border-line pt-5"><svg viewBox="0 0 20 20" class="mt-1 h-6 w-6 shrink-0" aria-hidden="true"><path d="M10 1V19M1 10H19" stroke="var(--post)" stroke-width="4"/></svg><div class="min-w-0"><h3 class="font-display text-2xl font-extrabold">Up your stairs, no fuss</h3><p class="mt-2 text-muted">Two of our team bring it in, carry it up and put it in position. We're very good at getting it up, whatever the staircase. Even your tight landing.</p></div></div>
+      <div class="flex gap-4 border-t border-line pt-5"><svg viewBox="0 0 20 20" class="mt-1 h-6 w-6 shrink-0" aria-hidden="true"><path d="M10 1V19M1 10H19" stroke="var(--post)" stroke-width="4"/></svg><div class="min-w-0"><h3 class="font-display text-2xl font-extrabold">100 nights to get it right</h3><p class="mt-2 text-muted">Give it a good going over for up to 100 nights. If it's not for you, there's no strings, no judgement and no awkward phone call.</p></div></div>
+      <div class="flex gap-4 border-t border-line pt-5"><svg viewBox="0 0 20 20" class="mt-1 h-6 w-6 shrink-0" aria-hidden="true"><path d="M10 1V19M1 10H19" stroke="var(--post)" stroke-width="4"/></svg><div class="min-w-0"><h3 class="font-display text-2xl font-extrabold">Your old one? We'll have it</h3><p class="mt-2 text-muted">We'll haul that saggy old mattress away. We've seen worse. We've seen it all, and we never tell.</p></div></div>
+      <div class="flex gap-4 border-t border-line pt-5"><svg viewBox="0 0 20 20" class="mt-1 h-6 w-6 shrink-0" aria-hidden="true"><path d="M10 1V19M1 10H19" stroke="var(--post)" stroke-width="4"/></svg><div class="min-w-0"><h3 class="font-display text-2xl font-extrabold">A guarantee that goes the distance</h3><p class="mt-2 text-muted">Ten years of cover, so you can stop worrying and start sleeping. Lasts longer than most relationships.</p></div></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="wrap pb-16 md:pb-24">
+    <div class="mx-auto max-w-3xl">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] text-post">Questions</p>
+      <h2 class="mt-2 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-balance">Things folk <span class="serif text-post">ask us.</span></h2>
+      <div class="mt-8 divide-y divide-line border-y border-line">
+        <details class="py-4"><summary class="flex items-center justify-between gap-4 font-bold">Is it really one click?<span class="plus text-2xl text-post" aria-hidden="true">+</span></summary><p class="mt-2 text-muted">One click on Buy now sends you straight to checkout with your bed and size already chosen. Then it's your address and card, because we can't read minds. Yet. Quick, painless, and over before the kettle's boiled.</p></details>
+        <details class="py-4"><summary class="flex items-center justify-between gap-4 font-bold">Will it fit up my stairs?<span class="plus text-2xl text-post" aria-hidden="true">+</span></summary><p class="mt-2 text-muted">Our team have been up spiral staircases, round awkward landings and past one very nosy cat. If it'll go up, we'll get it up. Slowly, if you'd rather.</p></details>
+        <details class="py-4"><summary class="flex items-center justify-between gap-4 font-bold">What if I don't get on with it?<span class="plus text-2xl text-post" aria-hidden="true">+</span></summary><p class="mt-2 text-muted">You've got 100 nights. If it's not for you, we'll collect it and sort it out. We won't ask what you got up to.</p></details>
+        <details class="py-4"><summary class="flex items-center justify-between gap-4 font-bold">Do you deliver across the UK?<span class="plus text-2xl text-post" aria-hidden="true">+</span></summary><p class="mt-2 text-muted">We deliver across mainland Britain, from Manchester to Margate and Penzance to Perth. Somewhere a bit more remote? Give us a ring first and we'll sort it.</p></details>
+        <details class="py-4"><summary class="flex items-center justify-between gap-4 font-bold">Firm or soft, how do I choose?<span class="plus text-2xl text-post" aria-hidden="true">+</span></summary><p class="mt-2 text-muted">Side sleepers like a bit of give. Back and front sleepers like it firmer. Do the sleep test above and we'll point you the right way. Or ask your nan, she'll have an opinion.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing CTA -->
+  <section class="relative overflow-hidden">
+    <svg class="absolute inset-0 h-full w-full" viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use href="#jackflat"/></svg>
+    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(7,11,26,.9) 0%, rgba(7,11,26,.72) 55%, rgba(7,11,26,.4) 100%)"></div>
+    <div class="wrap relative py-20 text-center md:py-28">
+      <h2 class="mx-auto max-w-4xl font-display text-5xl font-extrabold leading-[0.92] tracking-tight text-balance text-white md:text-7xl">Go on, treat yourself. It's only a <span class="serif text-post">click.</span></h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-white/85">Your back's been putting up with it for years. Give it something firm, supportive and properly British. Stop putting it off and get it bought.</p>
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <button type="button" data-buy="silentnight" class="btn-buy rounded-full px-8 py-4 text-lg font-bold">Buy Silentnight &middot; <span data-price="silentnight"></span></button>
+        <a href="#shop" class="btn-ghost rounded-full px-8 py-4 text-lg font-bold">See the other five</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-bg">
+  <div class="stripe"></div>
+  <div class="wrap flex flex-wrap items-center justify-between gap-3 py-8 text-sm text-muted">
+    <p class="flex items-center gap-2.5 font-display text-base font-extrabold text-ink"><svg viewBox="0 0 60 30" class="h-4 w-8 rounded-[2px] ring-1 ring-white/30" aria-hidden="true"><use href="#jackflat"/></svg>yournext<span class="text-post">bed</span>.com</p>
+    <p>Sleep tight, Britain.</p>
+    <p>&copy; 2026 Your Next Bed</p>
+  </div>
+</footer>
+
+<!-- Mobile buy bar -->
+<div class="glass fixed bottom-0 left-0 right-0 z-40 md:hidden">
+  <div class="stripe"></div>
+  <div style="padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px))">
+    <button type="button" data-buy="silentnight" class="btn-buy w-full rounded-full py-3.5 text-base font-bold">Buy Silentnight &middot; <span data-price="silentnight"></span></button>
+  </div>
+</div>
+
+<div id="toast" role="status" hidden class="fixed left-1/2 z-50 w-[calc(100%-32px)] max-w-md -translate-x-1/2 rounded-xl bg-ink px-4 py-3 text-sm font-medium text-bg shadow-2xl" style="bottom: calc(96px + env(safe-area-inset-bottom, 0px))"></div>
+
+<script>
+  // Paste your payment links here (Stripe Payment Links, Shopify checkout URLs and so on).
+  // Keys look like 'silentnight|King'. 'default' is used for anything not listed.
+  const CHECKOUT = {
+    // 'silentnight|King': 'https://buy.stripe.com/xxxx',
+    // default: 'https://yournextbed.com/checkout'
+  };
+
+  const SIZES = ['Double', 'King', 'Super King'];
+  const PRODUCTS = [
+    { id: 'silentnight', kind: 'mattress', name: 'Silentnight', badge: 'Bestseller', firm: 3, chips: ['Pocket sprung', 'Medium-firm'], prices: [499, 549, 629],
+      quip: 'A dependable all-rounder. Generously sprung, supportive where it counts and soft where it matters. Nice springs.' },
+    { id: 'tempur', kind: 'mattress', name: 'Tempur', firm: 2, chips: ['Memory foam', 'Soft-medium'], prices: [399, 449, 529],
+      quip: 'Soft, warm and moulds to you. It remembers your every curve, which is more than your ex ever did.' },
+    { id: 'sealy', kind: 'mattress', name: 'Sealy', firm: 5, chips: ['Supportive', 'Extra firm'], prices: [579, 629, 729],
+      quip: 'Firm, supportive and keeps going all night long. Your back will thank you, and the neighbours won’t hear a squeak.' },
+    { id: 'dreams', kind: 'bed', name: 'Dreams', chips: ['Ottoman storage', 'Upholstered'], prices: [649, 699, 799],
+      quip: 'Lift the lid and there’s room for the winter duvet, the spare pillows and whatever else you’d rather your mum didn’t find.' },
+    { id: 'hypnos', kind: 'bed', name: 'Hypnos', badge: 'Statement piece', chips: ['Tall headboard', 'Fabric frame'], prices: [749, 799, 899],
+      quip: 'Tall, upright and rather impressive. Needs a big room and a bigger personality.' },
+    { id: 'slumberland', kind: 'bed', name: 'Slumberland', chips: ['Divan base', 'Two drawers'], prices: [449, 499, 599],
+      quip: 'A classic divan with two deep drawers underneath. Mind the gap, and whatever you’ve stashed in it. We won’t ask.' }
+  ];
+  const QUIZ = {
+    side: { id: 'tempur', line: 'Shoulders and hips like a bit of give. Tempur hugs where you need it and lets go when you’ve had enough.' },
+    back: { id: 'silentnight', line: 'Flat on your back wants balance. Silentnight is firm enough to hold you up and soft enough to let you sink in.' },
+    front: { id: 'sealy', line: 'Face down needs a firm hand. Sealy keeps everything level and doesn’t ask questions.' },
+    star: { id: 'hypnos', line: 'You take up the whole bed and we respect that. Hypnos has the room, plus a headboard to match your ego. Your other half can have the edge.' }
+  };
+
+  const state = {};
+  PRODUCTS.forEach(p => { state[p.id] = 1; });
+  const money = n => '£' + n.toLocaleString('en-GB');
+  const find = id => PRODUCTS.find(p => p.id === id);
+
+  function gauge(n) {
+    let out = '';
+    for (let i = 1; i <= 5; i++) out += '<span class="h-2 w-7 rounded-sm ' + (i <= n ? 'bg-post lit' : 'bg-line') + '"></span>';
+    return '<div class="flex items-center gap-3"><span class="font-mono text-xs uppercase tracking-wider text-muted">Soft</span><div class="flex gap-1" role="img" aria-label="Firmness ' + n + ' out of 5">' + out + '</div><span class="font-mono text-xs uppercase tracking-wider text-muted">Firm</span></div>';
+  }
+
+  function cardHtml(p) {
+    const pills = SIZES.map((s, i) =>
+      '<button type="button" class="pill rounded-full px-3 py-1.5 text-sm font-bold" data-size="' + i + '" data-id="' + p.id + '" aria-pressed="' + (state[p.id] === i) + '">' + s + '</button>').join('');
+    const chips = p.chips.map(c => '<li class="rounded-md bg-soft px-2 py-1 font-mono text-xs">' + c + '</li>').join('');
+    return '<article class="card flex min-w-0 flex-col gap-4 rounded-2xl p-6" data-kind="' + p.kind + '">' +
+      '<div class="flex items-center justify-between gap-2"><span class="font-mono text-xs uppercase tracking-[0.18em] text-muted">' + (p.kind === 'mattress' ? 'Mattress' : 'Bed') + '</span>' +
+      '<span class="flex items-center gap-2">' + (p.badge ? '<span class="rounded-full bg-post px-2.5 py-1 font-mono text-[11px] uppercase tracking-wider text-white">' + p.badge + '</span>' : '') +
+      '<svg viewBox="0 0 60 30" class="h-4 w-8 rounded-[2px] ring-1 ring-white/25" aria-hidden="true"><use href="#jackflat"/></svg></span></div>' +
+      '<h3 class="font-display text-3xl font-extrabold leading-none tracking-tight">' + p.name + '</h3>' +
+      '<p class="text-muted">' + p.quip + '</p>' +
+      (p.firm ? gauge(p.firm) : '') +
+      '<ul class="flex flex-wrap gap-2">' + chips + '</ul>' +
+      '<div class="mt-auto flex flex-col gap-4 border-t border-line pt-4">' +
+        '<div class="flex flex-wrap gap-2" role="group" aria-label="Size for ' + p.name + '">' + pills + '</div>' +
+        '<div class="flex items-center justify-between gap-3"><span class="font-display text-4xl font-extrabold tabular-nums" data-price="' + p.id + '"></span>' +
+        '<button type="button" data-buy="' + p.id + '" class="btn-buy rounded-full px-6 py-3 text-sm font-bold">Buy now</button></div>' +
+      '</div></article>';
+  }
+
+  function refresh() {
+    document.querySelectorAll('[data-price]').forEach(el => {
+      const p = find(el.dataset.price);
+      el.textContent = money(p.prices[state[p.id]]);
+    });
+    document.querySelectorAll('[data-sizename]').forEach(el => {
+      el.textContent = SIZES[state[el.dataset.sizename]];
+    });
+  }
+
+  document.getElementById('grid').innerHTML = PRODUCTS.map(cardHtml).join('');
+  refresh();
+
+  let toastTimer;
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 5000);
+  }
+
+  function buy(id) {
+    const p = find(id);
+    const size = SIZES[state[id]];
+    const url = CHECKOUT[id + '|' + size] || CHECKOUT.default;
+    if (url) {
+      const a = document.createElement('a');
+      a.href = url; a.target = '_blank'; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); a.remove();
+    } else {
+      toast(p.name + ', ' + size + ' (' + money(p.prices[state[id]]) + '). Checkout isn’t connected on this preview yet. Add your payment links to CHECKOUT in the page script.');
+    }
+  }
+
+  function showMatch(key) {
+    const q = QUIZ[key], p = find(q.id);
+    document.getElementById('quiz-result').innerHTML =
+      '<p class="font-mono text-xs uppercase tracking-[0.2em] text-muted">Your match</p>' +
+      '<p class="mt-3 font-display text-4xl font-extrabold leading-none tracking-tight">' + p.name + '</p>' +
+      '<p class="mt-3 text-muted">' + q.line + '</p>' +
+      '<div class="mt-5 flex flex-wrap items-center justify-between gap-3"><span class="font-display text-4xl font-extrabold tabular-nums" data-price="' + p.id + '"></span>' +
+      '<button type="button" data-buy="' + p.id + '" class="btn-buy rounded-full px-6 py-3 text-sm font-bold">Buy ' + p.name + '</button></div>' +
+      '<p class="mt-3 font-mono text-xs text-muted"><span data-sizename="' + p.id + '"></span> size. Change it in the shop.</p>';
+    refresh();
+  }
+
+  document.addEventListener('click', e => {
+    const size = e.target.closest('[data-size]');
+    if (size) {
+      state[size.dataset.id] = Number(size.dataset.size);
+      size.parentElement.querySelectorAll('[data-size]').forEach(b => b.setAttribute('aria-pressed', String(b === size)));
+      refresh();
+      return;
+    }
+    const buyBtn = e.target.closest('[data-buy]');
+    if (buyBtn) { buy(buyBtn.dataset.buy); return; }
+    const filter = e.target.closest('[data-filter]');
+    if (filter) {
+      document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === filter)));
+      document.querySelectorAll('#grid > article').forEach(a => { a.hidden = filter.dataset.filter !== 'all' && a.dataset.kind !== filter.dataset.filter; });
+      return;
+    }
+    const sleep = e.target.closest('[data-sleep]');
+    if (sleep) showMatch(sleep.dataset.sleep);
+  });
+</script>
+
+</body>
+</html>
